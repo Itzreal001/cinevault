@@ -20,9 +20,7 @@ export default function Navbar() {
       {/* Nav links */}
       <div className={`nav-links ${open ? 'open' : ''}`}>
         <Link to="/">Home</Link>
-        <Link to="/movies">Movies</Link>
         <Link to="/favorites">Favorites</Link>
-        <Link to="/about">About</Link>
       </div>
     </nav>
   );
