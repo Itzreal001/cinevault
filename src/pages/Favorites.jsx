@@ -8,7 +8,7 @@ export default function Favorites() {
   useEffect(() => {
     setMovies(getFavorites());
   }, []);
-
+/*  saitama */ 
   return (
     <div className="container">
       <h2>❤️ Favorites</h2>
