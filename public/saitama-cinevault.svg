@@ -1,0 +1,72 @@
+<svg
+  width="260"
+  height="60"
+  viewBox="0 0 520 120"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="cineGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Film Vault Icon -->
+  <g transform="translate(10,10)" filter="url(#glow)">
+    <circle
+      cx="40"
+      cy="40"
+      r="36"
+      stroke="url(#cineGradient)"
+      stroke-width="4"
+      fill="rgba(0,0,0,0.6)"
+    />
+
+    <!-- Film holes -->
+    <circle cx="40" cy="18" r="3" fill="#22d3ee"/>
+    <circle cx="40" cy="62" r="3" fill="#22d3ee"/>
+    <circle cx="18" cy="40" r="3" fill="#22d3ee"/>
+    <circle cx="62" cy="40" r="3" fill="#22d3ee"/>
+
+    <!-- Vault arc -->
+    <path
+      d="M20 40a20 20 0 0 1 40 0"
+      stroke="#22d3ee"
+      stroke-width="3"
+      fill="none"
+    />
+  </g>
+
+  <!-- Text -->
+  <text
+    x="110"
+    y="52"
+    font-size="36"
+    font-weight="700"
+    fill="url(#cineGradient)"
+    font-family="Segoe UI, Inter, sans-serif"
+    letter-spacing="1"
+  >
+    SAITAMA
+  </text>
+
+  <text
+    x="110"
+    y="88"
+    font-size="20"
+    font-weight="500"
+    fill="#9ca3af"
+    font-family="Segoe UI, Inter, sans-serif"
+    letter-spacing="4"
+  >
+    CINEVAULT
+  </text>
+</svg>
