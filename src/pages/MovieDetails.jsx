@@ -8,6 +8,57 @@ import useSEO from '../hooks/useSEO';
 import { getMovieTrailer } from '../services/movieAPI';
 import { isFavorite, toggleFavorite } from '../services/favorites';
 
+// Download button component (keeps MovieDetails smaller)
+function DownloadButton({ movie }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  async function handleDownload() {
+    setError('');
+    setLoading(true);
+    try {
+      const headers = {};
+      if (import.meta.env.VITE_SERVER_API_KEY) {
+        headers['x-api-key'] = import.meta.env.VITE_SERVER_API_KEY;
+      }
+
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL || ''}/api/download/${movie.id}?filename=${encodeURIComponent(movie.title + '.mp4')}`, { headers });
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => ({}));
+        if (res.status === 401) throw new Error(errBody.error || 'Unauthorized — missing or invalid API key');
+        if (res.status === 403) throw new Error(errBody.error || 'Download not allowed for this movie');
+        throw new Error(errBody.error || 'Failed to get download link');
+      }
+      const { url } = await res.json();
+      // Use an anchor click to trigger the download (more reliable than window.open)
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.download = `${movie.title}.mp4`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (err) {
+      console.error(err);
+      setError(err.message || 'Unable to prepare download.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div style={{display: 'inline-flex', flexDirection: 'column'}}>
+      <button onClick={handleDownload} disabled={loading} className="download-btn">
+        <span className="material-icons">download</span>
+        {loading ? 'Preparing...' : 'Download'}
+      </button>
+      {error && <small style={{color: 'var(--accent, #ef4444)', marginTop: 6}}>{error}</small>}
+    </div>
+  );
+}
+
+
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const IMG = 'https://image.tmdb.org/t/p';
 
@@ -101,6 +152,8 @@ export default function MovieDetails() {
                     Watch Trailer
                   </button>
                 )}
+
+                <DownloadButton movie={movie} />
 
                 <button
                   className={`fav-action ${fav ? 'active' : ''}`}

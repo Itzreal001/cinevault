@@ -6,10 +6,6 @@ html, body {
   overflow-x: hidden;
 }
 
-body {
-  outline: 10px solid red !important;
-}
-
 :root {
   --bg: #07070a;
   --glass: rgba(15, 15, 20, 0.65);
@@ -163,20 +159,95 @@ body {
   padding-bottom: 0.5rem;
 }
 
+/* ======================================================
+   BUTTONS (MODERN RE-STYLE)
+====================================================== */
+button {
+  font-family: inherit;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .genre-btn {
-  background: var(--glass);
-  border: 1px solid var(--border);
-  color: white;
-  padding: 0.4rem 0.9rem;
-  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #efefef;
+  padding: 0.5rem 1.1rem;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   white-space: nowrap;
+  backdrop-filter: blur(10px);
+}
+
+.genre-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .genre-btn.active {
   background: var(--primary);
   border-color: var(--primary);
+  color: white;
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+}
+
+.download-btn,
+.load-more,
+.movie-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.8rem 1.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.2);
+}
+
+.download-btn:hover,
+.load-more:hover,
+.movie-actions button:hover {
+  background: #f40b17;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
+}
+
+.download-btn:active,
+.load-more:active,
+.movie-actions button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.download-btn[disabled] {
+  background: #333;
+  color: #888;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.fav-action {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+}
+
+.fav-action:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.fav-action.active {
+  border-color: var(--primary) !important;
+  background: rgba(229, 9, 20, 0.1) !important;
 }
 
 /* ======================================================
@@ -273,22 +344,6 @@ body {
 .fav-btn .material-icons {
   color: var(--primary);
   font-size: 22px;
-}
-
-/* ======================================================
-   BUTTONS
-====================================================== */
-.download-btn,
-.load-more {
-  display: inline-block;
-  margin: 2rem auto;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 999px;
-  padding: 0.7rem 1.5rem;
-  font-size: 0.9rem;
-  cursor: pointer;
 }
 
 /* ======================================================
@@ -783,4 +838,114 @@ html {
 @keyframes fadeInHero {
   0% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+/* Trend year picker styles (transparent glass) */
+.trend-year-picker select {
+  /* transparent glass look — minimal white tint */
+  background: transparent;
+  color: #f8fafc; /* slate-50 */
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 8px 10px 8px 12px;
+  padding-right: 40px; /* space for custom caret */
+  border-radius: 10px;
+  outline: none;
+  box-shadow: 0 6px 14px rgba(2,6,23,0.22);
+  backdrop-filter: blur(6px) saturate(110%);
+  -webkit-backdrop-filter: blur(6px) saturate(110%);
+  transition: box-shadow 180ms ease, border-color 150ms ease, transform 120ms ease;
+
+  /* remove native appearance so our transparent bg is visible */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* custom caret (white, subtle) */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='rgba(255,255,255,0.9)' d='M6 8L0 0h12z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+}
+
+.trend-year-picker select:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(2,6,23,0.24);
+}
+
+.trend-year-picker select:focus {
+  border-color: rgba(239,68,68,0.95); /* red accent */
+  box-shadow: 0 10px 30px rgba(239,68,68,0.12);
+}
+
+/* Try to style dropdown options where supported (some OS/browser combos ignore this) */
+.trend-year-picker select option {
+  background: rgba(17,24,39,0.96); /* slate-900, almost opaque */
+  color: #fff;
+}
+
+.trend-year-picker span {
+  margin-left: 8px;
+  color: #cbd5e1; /* lighter slate */
+}
+
+.trend-year-picker strong {
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trend-year-picker select { transition: none !important; transform: none !important; }
+}
+
+/* Year-change toast (floating) */
+.year-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #fff7ed; /* warm background */
+  color: #92400e; /* amber-800 */
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 12px 30px rgba(2,6,23,0.12);
+  z-index: 1200;
+  font-size: 0.95rem;
+  max-width: 360px;
+  pointer-events: auto;
+}
+
+.year-toast-message {
+  flex: 1 1 auto;
+}
+
+.year-toast-close {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #92400e;
+  opacity: 0.85;
+}
+
+.year-toast-close:hover {
+  background: rgba(0,0,0,0.03);
+  opacity: 1;
+}
+
+@media (max-width: 520px) {
+  .year-toast {
+    left: 12px;
+    right: 12px;
+    bottom: 18px;
+    max-width: calc(100% - 36px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .year-toast { transition: none !important; }
 }

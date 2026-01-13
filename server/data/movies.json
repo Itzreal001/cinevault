@@ -1,0 +1,14 @@
+[
+  {
+    "movieId": "550",
+    "s3Key": "movies/550.mp4",
+    "filename": "Fight Club (1999).mp4",
+    "downloadable": true
+  },
+  {
+    "movieId": "299536",
+    "s3Key": "movies/299536.mp4",
+    "filename": "Avengers Endgame (2019).mp4",
+    "downloadable": false
+  }
+]
